@@ -3,8 +3,20 @@
   "description": "An extension to save and reuse groups of tabs",
   "version": "1.0",
   "manifest_version": 3,
+  "permissions" : ["storage"],
   "action": {
     "default_popup": "main.html",
-    "default_icon": "images/compressor.png"
+    "default_icon": {
+      "16": "/images/compressor.png",
+      "32": "/images/compressor.png",
+      "48": "/images/compressor.png",
+      "128": "/images/compressor.png"
+    }
+  },
+  "icons": {
+    "16": "/images/compressor.png",
+    "32": "/images/compressor.png",
+    "48": "/images/compressor.png",
+    "128": "/images/compressor.png"
   }
 }
