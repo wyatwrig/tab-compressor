@@ -5,7 +5,7 @@
   "manifest_version": 3,
   "permissions" : ["storage"],
   "action": {
-    "default_popup": "main.html",
+    "default_popup": "list.html",
     "default_icon": {
       "16": "/images/compressor.png",
       "32": "/images/compressor.png",
