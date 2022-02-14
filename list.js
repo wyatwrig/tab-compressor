@@ -54,12 +54,16 @@ function restoreTabs(i){
     const row = document.getElementById(i.toString());
     console.log();
     const key = row.cells[0].innerHTML;
-    chrome.storage.sync.get([key], function(result){
-        let list = Object.values(result);
+    chrome.storage.sync.get([key], function(data){
+        console.log(data)
+        let list = Object.values(data[key]);
+        console.log(list)
         for(let j = 0; j < list.length; j++){
+            console.log(j)
             console.log(list[j])
             let obj = {url: list[j]};
             console.log(obj);
+
             chrome.tabs.create(obj, function(){alert("the tabs where created ")})
         };
     })
