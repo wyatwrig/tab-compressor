@@ -1,45 +1,76 @@
-function Populate() {
-    chrome.storage.sync.set({biology: ["https://www.w3schools.com/jsref/prop_node_parentnode.asp", "http://web.simmons.edu/~grabiner/comm244/weeknine/including-javascript.html"]}, function () {
-    });
-    chrome.storage.sync.set({math: ["https://www.w3schools.com/jsref/prop_node_parentnode.asp", "http://web.simmons.edu/~grabiner/comm244/weeknine/including-javascript.html"]}, function () {
-    });
-    let items = {}
-    loadData(function(data){
-        Object.assign(items, data);});
+ function Populate(data) {
 
+
+    let keyList = Object.keys(data)
     let table = document.getElementById("table");
     let rowCount = table.rows.length;
-    let row = table.insertRow(rowCount);
-    console.log(items["biology"])
     for (let i = 0; i < keyList.length; i++) {
-
+        let row = table.insertRow(rowCount);
+        row.id = i.toString()
+        console.log(row.id)
         row.insertCell(0).innerHTML = keyList[i].toString();
-        row.insertCell(1).innerHTML = '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
-        row.insertCell(2).innerHTML = '<input type="button" value = "Restore" onClick="Javacsript:restoreTabs(this)">';
+        row.insertCell(1).innerHTML = '<input type="button" value = "Delete" id="delete' + row.id + '">';
+        row.insertCell(2).innerHTML = '<input type="button" value = "Restore"  id="">';
+
+        row.cells[1].firstChild.addEventListener("click",function(){deleteRow(i)});
+        row.cells[2].firstChild.addEventListener("click",function(){restoreTabs(i)});
 
     };
 };
-function loadData(callback){
-    chrome.storage.sync.get(null, function(data){
-          callback(data);
-    });
+function loadData(){
+   chrome.storage.sync.get(null, function(data){
+       Populate(data);
+
+   });
 };
 
-function deleteRow(obj){
-    let index = obj.parentNode.parentNode.rowIndex;
-    let key = obj.parentNode.parentNode.cells[0];
-    let table = document.getElementById("table");
-    table.deleteRow(index);
-    chrome.storage.sync.remove([key]);
-};
-function restoreTabs(obj){
-        let key = obj.parentNode.parentNode.cells[0];
-        chrome.storage.snyc.get([key], (result) =>{
-            let urls = result;
-            console.log(result)
-        } );
+
+
+function testData(){
+         chrome.storage.sync.set(
+            {
+                biology:
+                    [
+                        "https://www.w3schools.com/jsref/prop_node_parentnode.asp",
+                        "http://web.simmons.edu/~grabiner/comm244/weeknine/including-javascript.html"
+                    ],
+                math:
+                    [
+                        "https://www.w3schools.com/jsref/prop_node_parentnode.asp",
+                        "http://web.simmons.edu/~grabiner/comm244/weeknine/including-javascript.html"
+                    ],
+
+            },);
 
 };
+
+function deleteRow(i){
+    const row = document.getElementById(i.toString());
+    const key = row.cells[0].innerHTML;
+    row.remove();
+    chrome.storage.sync.remove([key], function(){alert("removal was a success")})
+};
+function restoreTabs(i){
+    const row = document.getElementById(i.toString());
+    console.log();
+    const key = row.cells[0].innerHTML;
+    chrome.storage.sync.get([key], function(result){
+        let list = Object.values(result);
+        for(let j = 0; j < list.length; j++){
+            console.log(list[j])
+            let obj = {url: list[j]};
+            console.log(obj);
+            chrome.tabs.create(obj, function(){alert("the tabs where created ")})
+        };
+    })
+
+
+};
+
+
+
+
+testData()
 window.addEventListener('load', event => {
-    Populate();
+    loadData();
 });

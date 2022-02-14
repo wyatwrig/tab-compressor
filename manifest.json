@@ -3,7 +3,7 @@
   "description": "An extension to save and reuse groups of tabs",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions" : ["storage"],
+  "permissions" : ["storage", "tabs"],
   "action": {
     "default_popup": "list.html",
     "default_icon": {
