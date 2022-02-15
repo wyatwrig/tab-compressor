@@ -2,7 +2,7 @@ function Populate(data) {
     /*Take one input data from chrome.storage. Uses this
     information to fill out HTML table.
      */
-     console.log(data)
+    console.log(data)
     let keyList = Object.keys(data) //get a list of the dif keys in the data object
     let table = document.getElementById("table"); //find table node
     let rowCount = table.rows.length;

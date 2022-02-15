@@ -11,7 +11,7 @@ function storeTabs(){
     in a Promise to be resolved
      */
    return new Promise((resolve) => {
-       chrome.tabs.query({}, function(tabs){ //aysnc API call for the tab information
+       chrome.tabs.query({currentWindow: true}, function(tabs){ //aysnc API call for the tab information
            resolve(tabs)
        });
    });
