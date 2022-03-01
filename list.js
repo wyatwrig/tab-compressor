@@ -11,8 +11,8 @@ function Populate(data) {
         row.id = i.toString() // keep track of row by id
         //insert cells into row
         row.insertCell(0).innerHTML = keyList[i].toString();
-        row.insertCell(1).innerHTML = '<input type="button" value = "Delete" id="delete' + row.id + '">';
-        row.insertCell(2).innerHTML = '<input type="button" value = "Restore"  id="">';
+        row.insertCell(1).innerHTML = '<input class="delete-btn" type="button" value = "Delete" id="delete' + row.id + '">';
+        row.insertCell(2).innerHTML = '<input class="restore-btn" type="button" value = "Restore"  id="">';
         //add event listeners to input node
         row.cells[1].firstChild.addEventListener("click",function(){deleteRow(i)});
         row.cells[2].firstChild.addEventListener("click",function(){restoreTabs(i)});
